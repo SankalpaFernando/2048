@@ -1,6 +1,8 @@
-import React, { Component } from "react";
-import Game from "./Game";
 import "./stylesheets/App.css";
+
+import { Component } from "react";
+
+import Game from "./Game.tsx";
 
 class App extends Component {
   render = () => {

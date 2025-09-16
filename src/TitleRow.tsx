@@ -1,9 +1,18 @@
-import React, { Component } from "react";
-import AppBar from "@material-ui/core/AppBar";
-import Typography from "@material-ui/core/Typography";
 import "./stylesheets/TitleRow.css";
 
-class TitleRow extends Component {
+import { Component } from "react";
+
+import AppBar from "@mui/material/AppBar";
+import Typography from "@mui/material/Typography";
+
+// todo: move to a more appropriate place
+interface TitleRowProps {
+  winCondition: number;
+  sum: number;
+  best: number;
+}
+
+class TitleRow extends Component<TitleRowProps> {
   render = () => {
     return (
       <AppBar position="sticky">

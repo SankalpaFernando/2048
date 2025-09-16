@@ -1,18 +1,32 @@
-import React, { Component } from "react";
-import Replay from "@material-ui/icons/Replay";
-import CachedIcon from "@material-ui/icons/Cached";
-import Badge from "@material-ui/core/Badge";
-import IconButton from "@material-ui/core/IconButton";
-import Button from "@material-ui/core/Button";
-import Dialog from "@material-ui/core/Dialog";
-import DialogActions from "@material-ui/core/DialogActions";
-import DialogContent from "@material-ui/core/DialogContent";
-import DialogContentText from "@material-ui/core/DialogContentText";
-import DialogTitle from "@material-ui/core/DialogTitle";
 import "./stylesheets/Commands.css";
 
-class Commands extends Component {
-  constructor(props) {
+import { Component } from "react";
+
+import CachedIcon from "@mui/icons-material/Cached";
+import Replay from "@mui/icons-material/Replay";
+import Badge from "@mui/material/Badge";
+import Button from "@mui/material/Button";
+import Dialog from "@mui/material/Dialog";
+import DialogActions from "@mui/material/DialogActions";
+import DialogContent from "@mui/material/DialogContent";
+import DialogContentText from "@mui/material/DialogContentText";
+import DialogTitle from "@mui/material/DialogTitle";
+import IconButton from "@mui/material/IconButton";
+
+// todo: move to a more appropriate place
+interface CommandsProps {
+  numberOfUndos: number;
+  handleUndo: () => void;
+  handleReset: () => void;
+}
+
+// todo: move to a more appropriate place
+interface CommandsState {
+  showDialog: boolean;
+}
+
+class Commands extends Component<CommandsProps, CommandsState> {
+  constructor(props: CommandsProps) {
     super(props);
     this.state = {
       showDialog: false,

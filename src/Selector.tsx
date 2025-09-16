@@ -1,10 +1,24 @@
-import React, { Component } from "react";
-import Button from "@material-ui/core/Button";
-import Slider from "@material-ui/core/Slider";
 import "./stylesheets/Selector.css";
 
-class Selector extends Component {
-  constructor(props) {
+import { Component } from "react";
+
+import Button from "@mui/material/Button";
+import Slider from "@mui/material/Slider";
+
+import type { SliderOwnProps } from "@mui/material/Slider";
+
+// todo: move to a more appropriate place
+interface SelectorProps {
+  handleChangeGrid: (newGrid: number) => void;
+}
+// todo: move to a more appropriate place
+interface SelectorState {
+  displayRow: boolean;
+  value: number;
+}
+class Selector extends Component<SelectorProps, SelectorState> {
+  marks: { value: number; label: string }[];
+  constructor(props: SelectorProps) {
     super(props);
     // for slider
     this.marks = [
@@ -33,14 +47,16 @@ class Selector extends Component {
         label: "8",
       },
     ];
+    const storedValue = window.localStorage.getItem("gridSize");
+    const startSize = storedValue ? JSON.parse(storedValue) : 4;
     this.state = {
       displayRow: false,
-      value: 4,
+      value: startSize,
     };
   }
   // for ARIA
-  valuetext = (value) => {
-    return `{value}`;
+  valuetext = (value: number) => {
+    return `${value}`;
   };
   toggleDisplayRow = () => {
     this.setState((curState) => {
@@ -51,7 +67,7 @@ class Selector extends Component {
       }
     });
   };
-  handleChange = (event, newValue) => {
+  handleChange: SliderOwnProps<number>["onChange"] = (event, newValue) => {
     event.stopPropagation();
     this.setState(() => {
       return {
